@@ -23,7 +23,7 @@ class Enemy extends SpaceShip
     for (int i = 0; i < bullets.size(); i++) 
     {
       Bullet bullet = (Bullet) bullets.get(i);
-      if (bullet.x > x && bullet.x < x + 7 * pixelsize + 5 && bullet.y > y && bullet.y < y + 5 * pixelsize) 
+      if (bullet.x > x && bullet.x < x + 8 * pixelsize + 5 && bullet.y > y && bullet.y < y + 5 * pixelsize) 
       {
         bullets.remove(i);
         return false;
@@ -38,11 +38,13 @@ class Enemy extends SpaceShip
     if (x + (direction*gridsize) < 0 || x + (direction*gridsize) > width - gridsize) 
     {
       return true;
-    } else {
+    } 
+    else 
+    {
       return false;
     }
   }
-}
+  
 void createEnemies() 
 {
   for (int i = 0; i < width/gridsize/2; i++) 

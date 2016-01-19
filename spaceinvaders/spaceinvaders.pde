@@ -49,6 +49,11 @@ void draw()
     {
       enemy.draw();
     }
+     if (ypos == height)
+    {
+      text("You Lose",width/2.0,height/2.0); 
+    }
+  }
   }
   if (enemies == null)
   {
