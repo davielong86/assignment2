@@ -17,9 +17,9 @@ class Player extends SpaceShip
  
     void updateObj() 
     {
-        if (keyCode == LEFT) x -= 5;
-        if (keyCode == RIGHT) x += 5;
-        if (keyCode == CONTROL && canShoot) 
+        if (keyPressed && keyCode == LEFT) x -= 5;
+        if (keyPressed && keyCode == RIGHT) x += 5;
+        if (keyPressed && keyCode == CONTROL && canShoot) 
         {
             bullets.add(new Bullet(x, y));
             canShoot = false;
