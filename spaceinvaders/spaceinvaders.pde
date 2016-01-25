@@ -1,11 +1,14 @@
+
+int gameState = 0;
 int pixelsize = 4;
 int score = 0;
 int gridsize  = pixelsize * 7 + 5;
-Player player;
 ArrayList enemies = new ArrayList();
 ArrayList bullets = new ArrayList();
 int direction = 1;
 boolean incrementY = false;
+Player player;
+
 
 void setup() 
 {
@@ -15,14 +18,19 @@ void setup()
   size(1200, 800);
   player = new Player();
   createEnemies();
+  
 }
 
 void draw() 
 {
   background(0);
-
+  if (gameState == 0)
+  {
+    text("start Game",width / 2, height / 2);
+  }
+  else if (gameState == 1)
+  {
   player.draw();
-
   for (int i = 0; i < bullets.size(); i++) 
   {
     Bullet bullet = (Bullet) bullets.get(i);
@@ -39,7 +47,6 @@ void draw()
       break;
     }
   }
-
   for (int i = 0; i < enemies.size(); i++) 
   {
     Enemy enemy = (Enemy) enemies.get(i);
@@ -51,9 +58,14 @@ void draw()
       enemy.draw();
     }
   }
-  if (enemies == null )
-  {
-    text("You Win", 500, 300);
+  incrementY = false; 
   }
-  incrementY = false;
+  else if (gameState == 2)
+  {
+       text("you win",width / 2, height / 2);   
+  }
+  else if (gameState == 3)
+  {
+        text("you Lose",width / 2, height / 2);
+  }
 }

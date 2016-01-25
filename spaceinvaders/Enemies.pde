@@ -47,6 +47,7 @@ class Enemy extends SpaceShip
     }
   }
 }
+
 void createEnemies() 
 {
   for (int i = 0; i < width/gridsize/2; i++) 
