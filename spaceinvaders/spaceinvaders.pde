@@ -22,11 +22,11 @@ void setup()
   size(1200, 800);
   player = new Player();
   createEnemies();
-  
+
 
   controlP5 = new ControlP5(this);  
   ControlFont cf1 = new ControlFont(createFont("Times", 15));
-  createButton("PLAY", 1, width/2,height/2, color(255, 0, 0), cf1);
+  createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -51,8 +51,7 @@ void hideButton()
   if (display == false) 
   {
     b.hide();
-  } 
-  else 
+  } else 
   {
     b.show();
   }
@@ -65,53 +64,67 @@ void keyPressed()
     gameState = key - '0';
   }
 }
+void check()
+{
+  if (enemies == null)
+  {
+    gameState = 2;
+  }
+}
 void draw() 
 {
   background(0);
+  textSize(30);
   hideButton();
+  check();
   if (gameState == 0)
   {
     display = true;
-  }
+    text("your score is:"+ score,200,200);
+  } 
   else if (gameState == 1)
   {
-    display = false;
-  player.draw();
-  for (int i = 0; i < bullets.size(); i++) 
-  {
-    Bullet bullet = (Bullet) bullets.get(i);
-    bullet.draw();
-  }
 
-  for (int i = 0; i < enemies.size(); i++) 
-  {
-    Enemy enemy = (Enemy) enemies.get(i);
-    if (enemy.outside() == true) 
+    display = false;
+    player.draw();
+    
+    for (int i = 0; i < bullets.size(); i++) 
     {
-      direction *= (-1);
-      incrementY = true;
-      break;
+      Bullet bullet = (Bullet) bullets.get(i);
+      bullet.draw();
     }
-  }
-  for (int i = 0; i < enemies.size(); i++) 
-  {
-    Enemy enemy = (Enemy) enemies.get(i);
-    if (!enemy.alive()) 
+
+    for (int i = 0; i < enemies.size(); i++) 
     {
-      enemies.remove(i);
-    } else 
-    {
-      enemy.draw();
+      Enemy enemy = (Enemy) enemies.get(i);
+      if (enemy.outside() == true) 
+      {
+        direction *= (-1);
+        incrementY = true;
+        break;
+      }
     }
-  }
-  incrementY = false; 
-  }
+    for (int i = 0; i < enemies.size(); i++) 
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if (!enemy.alive()) 
+      {
+        enemies.remove(i);
+      } 
+      else 
+      {
+        enemy.draw();
+      }
+    }
+    incrementY = false;
+  } 
   else if (gameState == 2)
   {
-       text("you win",width / 2, height / 2,55);   
-  }
+    text("you win", width / 2, height / 2);
+    
+  } 
   else if (gameState == 3)
   {
-        text("you Lose",width / 2, height / 2,55);
+    text("you Lose", width / 2, height / 2);
   }
 }

@@ -16,6 +16,7 @@ class Enemy extends SpaceShip
   {
     if (frameCount%15 == 0) x += direction * gridsize;
     if (incrementY == true) y += gridsize / 2;
+    if (y == height) gameState = 3;
   }
 
   boolean alive() 
