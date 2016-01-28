@@ -16,7 +16,7 @@ class Enemy extends SpaceShip
   {
     if (frameCount%5 == 0) x += direction * gridsize;
     if (incrementY == true) y += gridsize / 2;
-    if (y-gridsize == height) gameState = 3;
+    if (y == height - 4200) gameState = 3;
   }
 
   boolean alive() 
@@ -37,7 +37,7 @@ class Enemy extends SpaceShip
 
   boolean outside() 
   {
-    if (x + (direction*gridsize) < 0 || x + (direction*gridsize) > width - gridsize) 
+    if (x + (direction*gridsize) < 0 || x + (direction*gridsize) > width) 
     {
       return true;
     }
