@@ -5,6 +5,7 @@ controlP5.Button b;
 int gameState = 0;
 int pixelsize = 4;
 int score = 0;
+int level = 1;
 int gridsize  = pixelsize * 7 + 5;
 ArrayList enemies = new ArrayList();
 ArrayList bullets = new ArrayList();
@@ -19,14 +20,16 @@ void setup()
   background(0);
   noStroke();
   fill(255);
-  size(1200, 800);
+  fullScreen();
   player = new Player();
-  createEnemies();
-
-
+  if (gameState == 0)
+  {
+    createEnemies();  
+  }
   controlP5 = new ControlP5(this);  
   ControlFont cf1 = new ControlFont(createFont("Times", 15));
   createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);
+  createButton("CONTINUE", 0, width/2, height/2 + 50, color(255, 0, 0), cf1);
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -51,7 +54,8 @@ void hideButton()
   if (display == false) 
   {
     b.hide();
-  } else 
+  } 
+  else 
   {
     b.show();
   }
@@ -66,7 +70,7 @@ void keyPressed()
 }
 void check()
 {
-  if (score == 107)
+  if (score == 173 * level)
   {
     gameState = 2;
   }
@@ -80,8 +84,8 @@ void draw()
   if (gameState == 0)
   {
     display = true;
-    // text("your score is:"+ score,200,200);
-  } else if (gameState == 1)
+  }
+  else if (gameState == 1)
   {
 
     display = false;
@@ -109,17 +113,26 @@ void draw()
       if (!enemy.alive()) 
       {
         enemies.remove(i);
-      } else 
+        score ++;
+      } 
+      else 
       {
         enemy.draw();
       }
     }
     incrementY = false;
-  } else if (gameState == 2)
+  } 
+  else if (gameState == 2)
   {
-    text("you win", width / 2, height / 2);
-  } else if (gameState == 3)
+    text("you win", 200, 200);
+    text("your score is:"+ score, 200, 250);
+    level ++;
+    display = true;
+  } 
+  else if (gameState == 3)
   {
-    text("you Lose", width / 2, height / 2);
+    text("you lose", 200, 200);
+    text("your score is:"+ score, 200, 250);
+    display = true;
   }
 }

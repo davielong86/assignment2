@@ -26,7 +26,6 @@ class Enemy extends SpaceShip
       Bullet bullet = (Bullet) bullets.get(i);
       if (bullet.x > x && bullet.x < x + 7 * pixelsize + 5 && bullet.y > y && bullet.y < y + 5 * pixelsize) 
       {
-        score ++;
         bullets.remove(i);
         return false;
       }
