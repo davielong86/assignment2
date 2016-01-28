@@ -1,6 +1,7 @@
 import controlP5.*;
 ControlP5 controlP5;
 controlP5.Button b;
+ControlFont cf1;
 
 int gameState = 0;
 int pixelsize = 4;
@@ -27,9 +28,8 @@ void setup()
     createEnemies();  
   }
   controlP5 = new ControlP5(this);  
-  ControlFont cf1 = new ControlFont(createFont("Times", 15));
+  cf1 = new ControlFont(createFont("Times", 15));
   createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);
-  createButton("CONTINUE", 0, width/2, height/2 + 50, color(255, 0, 0), cf1);
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -127,6 +127,7 @@ void draw()
     text("you win", 200, 200);
     text("your score is:"+ score, 200, 250);
     level ++;
+    createButton("CONTINUE", 0, width/2, height/2, color(255, 0, 0), cf1);
     display = true;
   } 
   else if (gameState == 3)
