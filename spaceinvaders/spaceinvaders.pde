@@ -23,10 +23,9 @@ void setup()
   fill(255);
   fullScreen();
   player = new Player();
-  if (gameState == 0 || gameState == 1)
-  {
-    createEnemies();
-  }
+
+  createEnemies();
+  
   controlP5 = new ControlP5(this);  
   cf1 = new ControlFont(createFont("Times", 15));
   createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);

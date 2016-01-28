@@ -24,6 +24,7 @@ class Player extends SpaceShip
     {
       bullets.add(new Bullet(x, y));
       canShoot = false;
+      shootdelay = 0;
     }
 
     shootdelay++;
