@@ -66,7 +66,7 @@ void keyPressed()
 }
 void check()
 {
-  if (enemies == null)
+  if (score == 107)
   {
     gameState = 2;
   }
@@ -80,14 +80,13 @@ void draw()
   if (gameState == 0)
   {
     display = true;
-    text("your score is:"+ score,200,200);
-  } 
-  else if (gameState == 1)
+    // text("your score is:"+ score,200,200);
+  } else if (gameState == 1)
   {
 
     display = false;
     player.draw();
-    
+
     for (int i = 0; i < bullets.size(); i++) 
     {
       Bullet bullet = (Bullet) bullets.get(i);
@@ -110,20 +109,16 @@ void draw()
       if (!enemy.alive()) 
       {
         enemies.remove(i);
-      } 
-      else 
+      } else 
       {
         enemy.draw();
       }
     }
     incrementY = false;
-  } 
-  else if (gameState == 2)
+  } else if (gameState == 2)
   {
     text("you win", width / 2, height / 2);
-    
-  } 
-  else if (gameState == 3)
+  } else if (gameState == 3)
   {
     text("you Lose", width / 2, height / 2);
   }
