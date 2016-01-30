@@ -28,7 +28,7 @@ class Player extends SpaceShip
     }
 
     shootdelay++;
-    if (shootdelay >= 25 - level) 
+    if (shootdelay >= 20 - level) 
     {
       canShoot = true;
     }

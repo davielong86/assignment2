@@ -14,7 +14,7 @@ class Enemy extends SpaceShip
 
   void updateObj() 
   {
-    if (frameCount%30 - level == 0) x += direction * gridsize;
+    if (frameCount%20 - level == 0) x += direction * gridsize;
     if (incrementY == true) y += gridsize / 2;
     if (y >= height - 90) gameState = 3;
   }

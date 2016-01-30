@@ -85,7 +85,6 @@ void draw()
   background(0);
   textSize(30);
   hideButton();
- // check();
   if (gameState == 0)
   {
     display = true;
