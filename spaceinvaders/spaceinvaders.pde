@@ -13,6 +13,7 @@ ArrayList bullets = new ArrayList();
 int direction = 1;
 boolean incrementY = false;
 boolean display = false;
+boolean creatE = true;
 Player player;
 
 
@@ -24,8 +25,6 @@ void setup()
   fullScreen();
   player = new Player();
 
-  createEnemies();
-  
   controlP5 = new ControlP5(this);  
   cf1 = new ControlFont(createFont("Times", 15));
   createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);
@@ -71,6 +70,14 @@ void check()
   if (score == 119 * level)
   {
     gameState = 2;
+    level += 1;
+  }
+}
+void create()
+{
+  if (creatE == true)
+  {
+    createEnemies();
   }
 }
 void draw() 
@@ -78,13 +85,14 @@ void draw()
   background(0);
   textSize(30);
   hideButton();
-  check();
+ // check();
   if (gameState == 0)
   {
     display = true;
   } else if (gameState == 1)
   {
-
+    create();
+    creatE = false;
     display = false;
     player.draw();
 
@@ -110,6 +118,7 @@ void draw()
       if (!enemy.alive()) 
       {
         enemies.remove(i);
+        check();
         score ++;
       } else 
       {
@@ -120,13 +129,18 @@ void draw()
   } else if (gameState == 2)
   {
     text("you win", 200, 200);
-    text("your score is:"+ score, 200, 250);
-    level ++;
+    text("LEVEL:"+ level, 200, 250);
+    text("your score is:"+ score, 200, 300);
+ 
+    creatE = true;
     display = true;
   } else if (gameState == 3)
   {
     text("you lose", 200, 200);
-    text("your score is:"+ score, 200, 250);
+    text("LEVEL:"+ level, 200, 250);
+    text("your score is:"+ score, 200, 300);
+    
+    creatE = true;
     display = true;
   }
 }
