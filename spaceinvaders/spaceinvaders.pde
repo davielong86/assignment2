@@ -7,6 +7,7 @@ int gameState = 0;
 int pixelsize = 6;
 int score = 0;
 int level = 1;
+int pscore;
 int gridsize  = (pixelsize * 7) + 5;
 ArrayList enemies = new ArrayList();
 ArrayList bullets = new ArrayList();
@@ -14,6 +15,7 @@ int direction = 1;
 boolean incrementY = false;
 boolean display = false;
 boolean creatE = true;
+boolean reset = false;
 Player player;
 
 
@@ -73,13 +75,28 @@ void check()
     level += 1;
   }
 }
-void create()
+
+void cleanup()
 {
-  if (creatE == true)
-  {
-    createEnemies();
-  }
+  for (int i = 0; i < enemies.size(); i++) 
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if (enemy.alive()) 
+      {
+        enemies.remove(i);
+      }
+    }
+    for (int i = 0; i < bullets.size(); i++) 
+    {
+        bullets.remove(i);
+    }
+    if (gameState == 3)
+    {
+      score = 0;
+      level = 1;
+    }
 }
+
 void draw() 
 {
   background(0);
@@ -88,7 +105,8 @@ void draw()
   if (gameState == 0)
   {
     display = true;
-  } else if (gameState == 1)
+  } 
+  else if (gameState == 1)
   {
     create();
     creatE = false;
@@ -130,15 +148,18 @@ void draw()
     text("you win", 200, 200);
     text("LEVEL:"+ level, 200, 250);
     text("your score is:"+ score, 200, 300);
- 
+    
+    cleanup();
     creatE = true;
     display = true;
   } else if (gameState == 3)
   {
+    pscore = score;
     text("you lose", 200, 200);
     text("LEVEL:"+ level, 200, 250);
-    text("your score is:"+ score, 200, 300);
+    text("your score is:"+ pscore, 200, 300);
     
+    cleanup();
     creatE = true;
     display = true;
   }

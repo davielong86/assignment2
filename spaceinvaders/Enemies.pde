@@ -58,3 +58,11 @@ void createEnemies()
     }
   }
 }
+
+void create()
+{
+  if (creatE == true)
+  {
+    createEnemies();
+  }
+}
