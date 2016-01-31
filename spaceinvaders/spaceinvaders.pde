@@ -15,15 +15,12 @@ int direction = 1;
 boolean incrementY = false;
 boolean display = false;
 boolean creatE = true;
-boolean reset = false;
 Player player;
-
 
 void setup() 
 {
-  background(0);
   noStroke();
-  fill(255);
+  fill(0,255,0);
   fullScreen();
   player = new Player();
 
@@ -137,6 +134,7 @@ void draw()
         enemies.remove(i);
         check();
         score ++;
+        pscore = score;
       } else 
       {
         enemy.draw();
@@ -154,7 +152,6 @@ void draw()
     display = true;
   } else if (gameState == 3)
   {
-    pscore = score;
     text("you lose", 200, 200);
     text("LEVEL:"+ level, 200, 250);
     text("your score is:"+ pscore, 200, 300);
