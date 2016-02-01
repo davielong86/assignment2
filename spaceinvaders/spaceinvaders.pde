@@ -66,7 +66,7 @@ void keyPressed()
 }
 void check()
 {
-  if (score == 119 * level)
+  if (enemies.size() == 0)
   {
     gameState = 2;
     level += 1;
