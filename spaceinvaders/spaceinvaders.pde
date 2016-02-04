@@ -22,20 +22,23 @@ boolean incrementY = false;
 boolean display = false;
 boolean creatE = true;
 boolean enterName = false;
-Table table;
+
+//Table table;
+
+PrintWriter output;
 
 Player player;
 
 void setup() 
 {
-  noStroke();
+  //noStroke();
   fill(0, 255, 0);
   fullScreen();
   player = new Player();
 
   controlP5 = new ControlP5(this);  
-  cf1 = new ControlFont(createFont("Times", 15));
-  createButton("PLAY", 1, width/2, height/2, color(255, 0, 0), cf1);
+  cf1 = new ControlFont(createFont("Times", 25));
+  createButton("PLAY", 1, 50, 50, color(255, 0, 0), cf1);
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -117,7 +120,7 @@ void cleanup()
 void loadData()
 {
 
-  String[] strings = loadStrings("data.csv"); // Load each line into a String array
+  String[] strings = loadStrings("data/data.csv"); // Load each line into a String array
   playerScore = new ArrayList<Integer>(); // Create an arraylist
   playerName = new ArrayList<String>(); // Create an arraylist
 
@@ -132,16 +135,22 @@ void loadData()
 }
 void saveData(String playerN, int pscore)
 {
-  table = new Table();
 
-  table.addColumn("Score");
-  table.addColumn("Name");
-
-  TableRow newRow = table.addRow();
-  newRow.setInt("Score", pscore);
-  newRow.setString("Name", playerN);
-
-  saveTable(table, "data/data.csv");
+  output = createWriter("data/data.csv");
+  output.println(pscore + "," + playerN);
+  output.flush();  // Writes the remaining data to the file
+  output.close();  // Finishes the file
+  /*table = new Table();
+   
+   table.addColumn("Score");
+   table.addColumn("Name");
+   
+   TableRow newRow = table.addRow();
+   newRow.setInt("Score", pscore);
+   newRow.setString("Name", playerN);
+   
+   saveTable(table, "data/data.csv");
+   */
 }
 
 
@@ -155,6 +164,7 @@ void draw()
     display = true;
   } else if (gameState == 1)
   {
+    playerN = "";
     enterName = false;
     create();
     creatE = false;
@@ -207,10 +217,10 @@ void draw()
     text("LEVEL:"+ level, 200, 250);
     text("YOUR SCORE IS:"+ pscore, 200, 300);
     text("ENTER NAME:" + playerN, 200, 350);
-    
+
     enterName = true;
-    cleanup();
     saveData(playerN, pscore);
+    cleanup();
     creatE = true;
     display = true;
   }
