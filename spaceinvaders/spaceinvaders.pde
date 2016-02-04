@@ -21,7 +21,7 @@ ArrayList playerName = new ArrayList();
 boolean incrementY = false;
 boolean display = false;
 boolean creatE = true;
-
+boolean enterName = false;
 Table table;
 
 Player player;
@@ -71,13 +71,16 @@ void keyPressed()
   if (key > '0' && key <='3')
   {
     gameState = key - '0';
-  } else if (key == BACKSPACE && playerN.length() > 0)
+  }
+  if (enterName == true)
   {
-    playerN = playerN.substring(0, playerN.length() - 1);
-  } else
-  {
-    playerN += key;
-    saveData(playerN, pscore);
+    if (key == BACKSPACE && playerN.length() > 0)
+    {
+      playerN = playerN.substring(0, playerN.length() - 1);
+    } else
+    {
+      playerN += key;
+    }
   }
 }
 
@@ -152,6 +155,7 @@ void draw()
     display = true;
   } else if (gameState == 1)
   {
+    enterName = false;
     create();
     creatE = false;
     display = false;
@@ -203,8 +207,10 @@ void draw()
     text("LEVEL:"+ level, 200, 250);
     text("YOUR SCORE IS:"+ pscore, 200, 300);
     text("ENTER NAME:" + playerN, 200, 350);
-
+    
+    enterName = true;
     cleanup();
+    saveData(playerN, pscore);
     creatE = true;
     display = true;
   }
