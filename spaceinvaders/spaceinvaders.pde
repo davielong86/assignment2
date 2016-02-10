@@ -20,6 +20,7 @@ ArrayList playerName = new ArrayList();
 
 boolean incrementY = false;
 boolean display = false;
+boolean display1 = false;
 boolean creatE = true;
 boolean enterName = false;
 
@@ -41,7 +42,7 @@ void setup()
   createButton("QUIT", 4, 50, 100, color(255, 0, 0), cf1);
 
   controlP5.addBang("ENTER")
-     .setPosition(240,400)
+     .setPosition(300,320)
      .setSize(80,40)
      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
      ;   
@@ -49,7 +50,7 @@ void setup()
 
 public void ENTER()
 {
-    playerName.add(playerN);
+    playerName.add(playerN + ".");
     playerScore.add(pscore);
     saveData();
 }
@@ -76,10 +77,21 @@ void hideButton()
   if (display == false) 
   {
     b.hide();
-    controlP5.hide();
+    //controlP5.hide();
   } else 
   {
     b.show();
+    //controlP5.show();
+  }
+}
+
+void hideButton1() 
+{
+  if (display1 == false) 
+  {
+    controlP5.hide();
+  } else 
+  {
     controlP5.show();
   }
 }
@@ -164,6 +176,7 @@ void draw()
   background(0);
   textSize(30);
   hideButton();
+  hideButton1();
   if (gameState == 0)
   {
     display = true;
@@ -175,6 +188,7 @@ void draw()
     create();
     creatE = false;
     display = false;
+    display1 = false;
     player.draw();
 
     for (int i = 0; i < bullets.size(); i++) 
@@ -210,13 +224,13 @@ void draw()
     incrementY = false;
   } else if (gameState == 2)
   {
-    text("YOU WIN", 50, 200);
-    text("LEVEL:"+ (level-1), 50, 250);
-    text("YOUR SCORE IS:"+ score, 50, 300);
-    text("HIGH SCORES", width - 400, 50);
+    text("YOU WIN", 50, 250);
+    text("LEVEL:"+ (level-1), 50, 300);
+    text("YOUR SCORE IS:"+ score, 50, 350);
+    text("HIGH SCORES", width/2, 50);
     for (int i = 0; i < playerScore.size(); i ++)
     {
-      text("Score:"+ playerScore.get(i) + " Name:"+ playerName.get(i), width - 400,100+(50*i));
+      text("Score:"+ playerScore.get(i) + " Name:"+ playerName.get(i), width/2,100+(50*i));
     }
     cleanup();
     creatE = true;
@@ -230,6 +244,7 @@ void draw()
 
     enterName = true;
     cleanup();
+    display1 = true;
     creatE = true;
     display = true;
   }
@@ -238,4 +253,5 @@ void draw()
     saveData();
     exit();
   }
+  
 }
