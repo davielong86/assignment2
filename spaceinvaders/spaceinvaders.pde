@@ -23,8 +23,6 @@ boolean display = false;
 boolean creatE = true;
 boolean enterName = false;
 
-//Table table;
-
 PrintWriter output;
 
 Player player;
@@ -32,13 +30,28 @@ Player player;
 void setup() 
 {
   //noStroke();
+  loadData();
   fill(0, 255, 0);
   fullScreen();
   player = new Player();
-
+  
   controlP5 = new ControlP5(this);  
   cf1 = new ControlFont(createFont("Times", 25));
   createButton("PLAY", 1, 50, 50, color(255, 0, 0), cf1);
+  createButton("QUIT", 4, 50, 100, color(255, 0, 0), cf1);
+
+  controlP5.addBang("ENTER")
+     .setPosition(240,400)
+     .setSize(80,40)
+     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+     ;   
+}
+
+public void ENTER()
+{
+    playerName.add(playerN);
+    playerScore.add(pscore);
+    saveData();
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -63,15 +76,17 @@ void hideButton()
   if (display == false) 
   {
     b.hide();
+    controlP5.hide();
   } else 
   {
     b.show();
+    controlP5.show();
   }
 }
 
 void keyPressed()
 {
-  if (key > '0' && key <='3')
+  if (key > '0' && key <='4')
   {
     gameState = key - '0';
   }
@@ -133,26 +148,16 @@ void loadData()
     playerName.add((line[1]));
   }
 }
-void saveData(String playerN, int pscore)
+void saveData()
 {
-
   output = createWriter("data/data.csv");
-  output.println(pscore + "," + playerN);
-  output.flush();  // Writes the remaining data to the file
-  output.close();  // Finishes the file
-  /*table = new Table();
-   
-   table.addColumn("Score");
-   table.addColumn("Name");
-   
-   TableRow newRow = table.addRow();
-   newRow.setInt("Score", pscore);
-   newRow.setString("Name", playerN);
-   
-   saveTable(table, "data/data.csv");
-   */
+  for (int i = 0; i < playerScore.size(); i ++)
+  {
+  output.println(playerScore.get(i) + "," + playerName.get(i));
+  output.flush();  // Writes data to the file
+  }
+  output.close();  // Finish file writing
 }
-
 
 void draw() 
 {
@@ -164,6 +169,7 @@ void draw()
     display = true;
   } else if (gameState == 1)
   {
+
     playerN = "";
     enterName = false;
     create();
@@ -204,24 +210,32 @@ void draw()
     incrementY = false;
   } else if (gameState == 2)
   {
-    text("YOU WIN", 200, 200);
-    text("LEVEL:"+ level, 200, 250);
-    text("YOUR SCORE IS:"+ score, 200, 300);
-
+    text("YOU WIN", 50, 200);
+    text("LEVEL:"+ (level-1), 50, 250);
+    text("YOUR SCORE IS:"+ score, 50, 300);
+    text("HIGH SCORES", width - 400, 50);
+    for (int i = 0; i < playerScore.size(); i ++)
+    {
+      text("Score:"+ playerScore.get(i) + " Name:"+ playerName.get(i), width - 400,100+(50*i));
+    }
     cleanup();
     creatE = true;
     display = true;
   } else if (gameState == 3)
   {
-    text("YOU LOSE", 200, 200);
-    text("LEVEL:"+ level, 200, 250);
-    text("YOUR SCORE IS:"+ pscore, 200, 300);
-    text("ENTER NAME:" + playerN, 200, 350);
+    text("YOU LOSE", 50, 200);
+    text("LEVEL:"+ level, 50, 250);
+    text("YOUR SCORE IS:"+ pscore, 50, 300);
+    text("ENTER NAME:" + playerN, 50, 350);
 
     enterName = true;
-    saveData(playerN, pscore);
     cleanup();
     creatE = true;
     display = true;
+  }
+  else if (gameState == 4)
+  {
+    saveData();
+    exit();
   }
 }
