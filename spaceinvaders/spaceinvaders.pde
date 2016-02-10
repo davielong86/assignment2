@@ -41,18 +41,19 @@ void setup()
   createButton("PLAY", 1, 50, 50, color(255, 0, 0), cf1);
   createButton("QUIT", 4, 50, 100, color(255, 0, 0), cf1);
 
-  controlP5.addBang("ENTER")
-     .setPosition(300,320)
+  controlP5.addBang("SAVE")
+     .setPosition(450,320)
      .setSize(80,40)
      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
      ;   
 }
 
-public void ENTER()
+public void SAVE()
 {
     playerName.add(playerN + ".");
     playerScore.add(pscore);
     saveData();
+    gameState = 0;
 }
 
 Button createButton(String theName, int theValue, int theX, int theY, color theColor, ControlFont font) 
@@ -77,28 +78,17 @@ void hideButton()
   if (display == false) 
   {
     b.hide();
-    //controlP5.hide();
-  } else 
-  {
-    b.show();
-    //controlP5.show();
-  }
-}
-
-void hideButton1() 
-{
-  if (display1 == false) 
-  {
     controlP5.hide();
   } else 
   {
+    b.show();
     controlP5.show();
   }
 }
 
 void keyPressed()
 {
-  if (key > '0' && key <='4')
+  if (key > '0' && key <='3')
   {
     gameState = key - '0';
   }
@@ -176,7 +166,7 @@ void draw()
   background(0);
   textSize(30);
   hideButton();
-  hideButton1();
+
   if (gameState == 0)
   {
     display = true;
@@ -188,7 +178,6 @@ void draw()
     create();
     creatE = false;
     display = false;
-    display1 = false;
     player.draw();
 
     for (int i = 0; i < bullets.size(); i++) 
@@ -244,7 +233,6 @@ void draw()
 
     enterName = true;
     cleanup();
-    display1 = true;
     creatE = true;
     display = true;
   }
